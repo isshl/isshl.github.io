@@ -71,8 +71,8 @@
     scheme: 'Pisces',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -84,14 +84,13 @@
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    translation: {
-      copy_button: '复制',
-      copy_success: '复制成功',
-      copy_failure: '复制失败'
     }
   };
 </script>
+
+
+  
+
 
 
 
@@ -255,6 +254,10 @@
 
 
 
+  
+
+
+
 </div>
     </header>
 
@@ -362,8 +365,6 @@
 
           
 
-          
-
           <br>
           
 
@@ -393,10 +394,6 @@
       
     </div>
 
-    
-
-    
-      
     
 
     
@@ -579,17 +576,20 @@
           
 
           
+            
+          
+          
+
         </div>
       </div>
 
       
 
       
-<br>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1789237&auto=0&height=32"></iframe>
+
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  
 
 
         
@@ -598,7 +598,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2013 – <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -648,6 +648,8 @@
     
 
     
+
+    
   </div>
 
   
@@ -666,9 +668,6 @@
 
 
 
-
-  
-  
 
 
 
@@ -690,6 +689,10 @@
 
 
 
+
+
+
+
   
   <script src="/lib/jquery/index.js?v=3.4.1"></script>
 
@@ -700,6 +703,7 @@
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
+  
 
 
   <script src="/js/utils.js?v=7.2.0"></script>
@@ -724,9 +728,11 @@
 
 
 
+  
+
+
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
-  
 
   
 
@@ -777,7 +783,6 @@
   
 
   
-
 
   
 
