@@ -1143,7 +1143,7 @@ pre .javascript .function {
   line-height: 36px;
   font-size: 20px;
   font-weight: normal;
-  font-family: 'Avenir Next,Avenir,Helvetica Neue,Helvetica,Hiragino Sans GB,微软雅黑,sans-serif', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Avenir Next,Avenir,Helvetica Neue,Helvetica,Hiragino Sans GB,微软雅黑,sans-serif', "PingFang SC", "Microsoft YaHei", sans-serif, Avenir Next, Avenir;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1734,7 +1734,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #87ff22;
+  background: #ffffa8;
 }
 .feed-link,
 .chat {
