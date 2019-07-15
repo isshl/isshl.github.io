@@ -1099,7 +1099,8 @@ pre .javascript .function {
   font-weight: 300;
   font-family: "Montserrat", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, sans-serif;
   cursor: pointer;
-  color: #333333;
+  color: #4e4e4e;
+  text-decoration: none;
 }
 .footer p span a {
   font-weight: 300;
@@ -1108,8 +1109,9 @@ pre .javascript .function {
   color: #979797;
   text-decoration: none;
 }
-.footer p span a:hover {
-  color: #333333;
+.footer p a:hover {
+  color: #00A2D1;
+  text-decoration:blink;
 }
 .list-inline.text-center {
   color: #444444;
