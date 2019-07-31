@@ -10,7 +10,7 @@ html {
 body {
   margin-left: calc(100vw - 100%) !important;
   -webkit-text-size-adjust: none;
-  color: #101010;
+  background-color: #101010;
 }
 .red {
   color: red;
