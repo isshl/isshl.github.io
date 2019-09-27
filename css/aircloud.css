@@ -934,7 +934,7 @@ pre,
 }
 pre,
 code {
-  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
+  font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
 }
 code {
   padding: 2px 4px;
@@ -999,6 +999,7 @@ pre code {
 .highlight .line {
   height: 20px;
   font-family: "Fira Code";
+  font-size: 16px;
 }
 .gutter {
   -webkit-user-select: none;
