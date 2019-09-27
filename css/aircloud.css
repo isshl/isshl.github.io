@@ -936,6 +936,9 @@ pre,
 code {
   font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
 }
+td.code{
+  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
+}
 code {
   padding: 2px 4px;
   word-wrap: break-word;
