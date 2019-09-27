@@ -1100,6 +1100,7 @@ pre .javascript .function {
   font-family: "Montserrat", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, sans-serif;
   cursor: pointer;
   color: #333333;
+  text-decoration: none;
 }
 .footer p span a {
   font-weight: 300;
