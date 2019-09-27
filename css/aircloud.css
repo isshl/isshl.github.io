@@ -934,7 +934,7 @@ pre,
 }
 pre,
 code {
-  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace !important;
+  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
 }
 code {
   padding: 2px 4px;
@@ -995,6 +995,7 @@ pre code {
   padding-left: 10px;
   padding-right: 10px;
   background-color: #f7f7f7;
+  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace !important;
 }
 .highlight .line {
   height: 20px;
