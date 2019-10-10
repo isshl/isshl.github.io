@@ -11,7 +11,7 @@
 
     <title>
         
-        小寒丨isshl
+        平衡查找树 - 小寒丨isshl
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -112,57 +116,43 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-07-15</div>
-        <div class="post-info">
-            <a href="/2019/07/15/从某次搜索谈起/">
-                <h3>
-                    从某次搜索谈起
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#技术应用" title="技术应用">技术应用</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        平衡查找树
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-07-15</div>
-        <div class="post-info">
-            <a href="/2019/07/15/关于一些问题的思考/">
-                <h3>
-                    关于一些问题的思考
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#生活" title="生活">生活</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-07 23:19:14</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
     </div>
-    
+    <div class="post-content no-indent">
+        <p>平衡查找树是一颗空树，或者非空时任意结点的左右子树也是平衡二叉树，并且高度差的绝对值不大于1。平衡查找树的种类很多。Algorithm书中提到的有2-3树和红黑树。</p>
+<p>2-3树是一颗空树，或者不是空树时，树中存在两种结点即：2-结点和3-结点。<br>2-结点包含单个键和左右两条链接，左链接指向的左子树中的键均小于该结点，右链接指向的右子树中的键都大于该结点。<br>3-结点包含2个键和三条链接，左链接指向的左子树中的键均小于该结点，中链接指向的子树中的键大小介于该结点的两个键之间，右链接指向的右子树中的键均大于该结点。<br>而2-3树的叶子结点的链接指向空树，均为空链接。<br>完美平衡的2-3树，则指的是所有空链接到根结点的距离相等。<br>2-3树的查找和二叉树的查找类似。<br>插入新的结点，则需要分以下几种情况。<br>新结点在插入之前，需要进行一次未命中的查找，以确定新结点应插到哪个位置。<br>若插入的位置在2-结点上，则直接将新结点与该结点组合长一个3-结点。<br>若插入的位置在3-结点上，且这颗树只有这一个结点，则将3-结点临时变成4-结点，然后将这个4-结点的中间元素提出，将剩余结点变成2个2-结点，以保持树的平衡。<br>若插入的位置在3-结点上，且这个结点的父结点是2-结点，则将3-结点临时变为4-结点，然后将4-结点的中间元素插入到父结点2-结点中，并将父结点变成3-结点，4-结点的剩余元素变成2个2-结点。<br>若插入的位置在3-结点上，且这个结点的父结点是3-结点，则将3-结点临时变为4-结点，然后将4-几点的中间元素插入到父结点3-结点中，这时父结点3-结点也变成了4-结点，则继续将父结点中的中间元素插入到其父结点中，以此向上不断插入，直至遇到一个2-结点，将2-结点变成3-结点，或者遇到根结点是3-结点，则将根结点临时变成4-结点，然后将该结点的中间元素提出变成根结点，剩余结点变成2个2-结点，树高加1。</p>
+<p>红黑树首先是一颗2-3树，也是一颗二叉查找树。<br>在红黑树中，3-结点内的两个键，以一条红色链接连接起来，且链接为左链接。而黑色链接则为普通链接。<br>没有任何一个结点同时和两条红色链接相连。<br>完美黑色平衡的红黑树，任意空链接到根节点的路径上黑色链接数量相同。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
 </div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
     </div>
 </div>
@@ -215,12 +205,31 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 
 
 
