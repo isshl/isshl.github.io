@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="小寒的博客">
+    <meta name="keyword" content="编程 GTD 自我管理">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        基于拉链法的散列表 - 小寒丨isshl
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 醉后不知天在水，满船清梦压星河 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar radius">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>小寒</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 醉后不知天在水，满船清梦压星河 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        基于拉链法的散列表
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-12 15:57:13</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>如果符号表的键都是小整数，则可以用数组来存储无序的符号表，即键为数组的索引，而数组在键 i 处存储的值即为它对应的值。<br>但键的类型不会只有整数，还有可能是别的类型的，甚至是自定义类型的，所以将各种类型的键转换为一个小整数，需要一个函数，这个函数被称为散列函数。严格来说，对于每种类型的键都需要一个与之对应的散列函数。<br>一个优秀的散列函数需满足以下几点要求：<br>-一致性：等价的键必然产生相等的散列值<br>-高效性：计算简便<br>-均匀性：均匀地散列所有键<br>既然需要为每种数据类型提供对应的散列函数，因此在java中，所有的数据类型都继承了一个能够返回32比特整数的方法–hashCode()，与此同时，hashCode()方法与equals()方法的表现必须一致，即若两个键是相等的，则两个键的hashCode方法的返回值也相同，hashCode方法返回值不同，则两个键不相等。而hashCode方法返回值相同，两个键也可能不同，此时需要通过equals方法来判断。<br>散列表的实现方式有两种：拉链法和线性探测法。<br>这里先说拉链法。<br>拉链法的一种实现方法是基于原始的链表数据结构，即扩展的基于无序链表的SequentialSearchST。<br>即：数组中的每一个对象都是SequentialSearchST的链表结构。符号表的键通过散列函数得出对应的索引，然后将键值对存储在链表结构中。<br>Java的实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeparateChainingHashST</span>&lt;<span class="title">Key</span>, <span class="title">Value</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INIT_CAPACITY = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> m;</span><br><span class="line">    <span class="keyword">private</span> SequentialSearchST&lt;Key, Value&gt;[] st;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeparateChainingHashST</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(INIT_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeparateChainingHashST</span><span class="params">(<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.m = m;</span><br><span class="line">        st = (SequentialSearchST&lt;Key, Value&gt;[]) <span class="keyword">new</span> SequentialSearchST[m]; <span class="comment">// 数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            st[i] = <span class="keyword">new</span> SequentialSearchST&lt;Key, Value&gt;(); <span class="comment">// 数组中的每一项都是一条链表</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> chains)</span> </span>&#123;</span><br><span class="line">        SeparateChainingHashST&lt;Key, Value&gt; temp = <span class="keyword">new</span> SeparateChainingHashST&lt;Key, Value&gt;(chains);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Key key : st[i].keys()) &#123;</span><br><span class="line">                temp.put(key, st[i].get(key));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.m = temp.m;</span><br><span class="line">        <span class="keyword">this</span>.n = temp.n;</span><br><span class="line">        <span class="keyword">this</span>.st = temp.st;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 散列函数 or hash函数</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Key key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (key.hashCode() &amp; <span class="number">0x7fffffff</span>) % m;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Key key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"argument to contains() is null"</span>);</span><br><span class="line">        <span class="keyword">return</span> get(key) != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Value <span class="title">get</span><span class="params">(Key key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"argument to get() is null"</span>);</span><br><span class="line">        <span class="keyword">int</span> i = hash(key);</span><br><span class="line">        <span class="keyword">return</span> st[i].get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Key key, Value val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"argument to put() is null"</span>);</span><br><span class="line">        <span class="keyword">if</span> (val == <span class="keyword">null</span>) &#123;</span><br><span class="line">            delete(key);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n &gt;= <span class="number">10</span> * m)</span><br><span class="line">            resize(<span class="number">2</span> * m);</span><br><span class="line">        <span class="keyword">int</span> i = hash(key);</span><br><span class="line">        <span class="keyword">if</span> (!st[i].contains(key))</span><br><span class="line">            n++;</span><br><span class="line">        st[i].put(key, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Key key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"argument to delete() is null"</span>);</span><br><span class="line">        <span class="keyword">int</span> i = hash(key);</span><br><span class="line">        <span class="keyword">if</span> (st[i].contains(key))</span><br><span class="line">            n--;</span><br><span class="line">        st[i].delete(key);</span><br><span class="line">        <span class="keyword">if</span> (m &gt; INIT_CAPACITY &amp;&amp; n &lt;= <span class="number">2</span> * m)</span><br><span class="line">            resize(m / <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Key&gt; <span class="title">keys</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Queue&lt;Key&gt; queue = <span class="keyword">new</span> Queue&lt;Key&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Key key : st[i].keys())</span><br><span class="line">                queue.enqueue(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> queue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <!--
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        -->
+    <p>
+                <!--<a href="http://songchunlin.net/en" title="宋春林的英文站点" target="_blank">英文</a> ::
+                <a href="http://www.zhihu.com/people/songcl" title="宋春林的知乎" target="_blank">知乎</a> ::-->
+                <a href="http://weibo.com/ishanlog" title="小寒的微博" target="_blank">微博</a> ::
+                <a href="mailto:shxheniaoan@gmail.com" title="小寒的Gmail邮箱" target="_blank">邮箱</a> ::
+                <a href="http://www.douban.com/people/ishanlog/" title="小寒的豆瓣" target="_blank">豆瓣</a> ::
+                <!--<a href="https://500px.com/songchunlin" title="宋春林的摄影相册" target="_blank">500px</a> ::-->
+                <a href="https://github.com/isshl" title="小寒的GitHub" target="_blank">GitHub</a> ::
+                <!--<a href="https://www.researchgate.net/profile/Chunlin_Song4" title="宋春林的 ResearchGate" target="_blank">ResearchGate</a> ::
+                <a href="http://songchunlin.net/cn/feed/" title="RSS 订阅" target="_blank" >RSS</a>-->
+                <a href="https://www.instagram.com/isshl/" title="小寒的instagram" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
