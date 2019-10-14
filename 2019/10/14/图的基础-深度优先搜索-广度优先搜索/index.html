@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="小寒的博客">
+    <meta name="keyword" content="编程 GTD 自我管理">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        图的基础&amp;深度优先搜索&amp;广度优先搜索 - 小寒丨isshl
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 醉后不知天在水，满船清梦压星河 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar radius">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>小寒</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 醉后不知天在水，满船清梦压星河 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        图的基础&amp;深度优先搜索&amp;广度优先搜索
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-14 11:12:22</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>图是一种抽象的数学对象。<br>图的种类有很多，这里只涉及到以下几种：无向图、有向图、加权图、加权有向图。<br>图的实际应用包括：地图、网页信息、电路、任务调度、商业交易、配对、计算机网络、软件、社交网络等。<br>关于图的研究历史悠久，这里我们只关注图的一些基本性质。<br>也许包括：<br>顶点与顶点之间是否存在连接？<br>有多少个顶点与指定顶点相连？<br>两个顶点之间最短的连通路径是什么？等等。<br>这几个问题涉及到关于图的基础算法：深度优先搜索和广度优先搜索。</p>
+<p>在介绍图的基础算法之前，先来介绍一下关于图的一些术语。<br>图：由一组顶点和一组能连接两个顶点的边组成的结构。<br>自环：由一条连接顶点和其自身的边。<br>平行边：两条连接同一对顶点的边。<br>两个顶点通过一条边相连是，即相邻的。<br>这条边则依附于这两个顶点。<br>某个顶点依附于它的边数成为度数。<br>子图是一幅图的所有边的一个子集组成的图。<br>路径是由边顺序连接的一些列顶点。<br>简单路径是没有重复顶点的路径。<br>环是一条至少含有一条边且起点和终点相同的路径。<br>简单环是一条不含有重复顶点和边的环。<br>路径或者环的长度为其中所包含的边数。<br>连通图：任意一个顶点都可以通过一条路径到达任意另一个顶点的图。<br>无环图：不存在环的图。<br>树是一个无环连通图。互不相连的树组成森林。<br>密度：图中存在的顶点对占可能连接的顶点对的比例。<br>以上就是关于图的一些术语。</p>
+<p>在介绍图的基础算法之前，再介绍一下无向图的概念。<br>无向图是由顶点和连接顶点的边组成的。<br>它的数据结构是一个数组。<br>数组的索引为无向图的顶点。<br>数组内的每一项都是一个邻接表，即保存了与索引顶点相邻的所有顶点的一个链表结构。<br>实现这个链表结构的抽象数据类型是Bag。<br>以下是Graph的Java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.NoSuchElementException;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String NEWLINE = System.getProperty(<span class="string">"line.separator"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;<span class="comment">// 顶点数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> E;<span class="comment">// 边数</span></span><br><span class="line">    <span class="keyword">private</span> Bag&lt;Integer&gt;[] adj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Graph</span><span class="params">(<span class="keyword">int</span> V)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (V &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Number of vertices must be nonnegative"</span>);</span><br><span class="line">        <span class="keyword">this</span>.V = V;</span><br><span class="line">        <span class="keyword">this</span>.E = <span class="number">0</span>;</span><br><span class="line">        adj = (Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</span><br><span class="line">            adj[v] = <span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Graph</span><span class="params">(In in)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.V = in.readInt();</span><br><span class="line">            <span class="keyword">if</span> (V &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Number of vertices must be nonnegative"</span>);</span><br><span class="line">            adj = (Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</span><br><span class="line">                adj[v] = <span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> E = in.readInt();</span><br><span class="line">            <span class="keyword">if</span> (E &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Number of vertices must be nonnegative"</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; E; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> v = in.readInt();</span><br><span class="line">                <span class="keyword">int</span> w = in.readInt();</span><br><span class="line">                validateVertex(v);</span><br><span class="line">                validateVertex(w);</span><br><span class="line">                addEdge(v, w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchElementException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"invalid input format in Graph constructor"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Graph</span><span class="params">(Graph G)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(G.V());</span><br><span class="line">        <span class="keyword">this</span>.E = G.E();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++) &#123;</span><br><span class="line">            Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w : G.adj[v]) &#123;</span><br><span class="line">                stack.push(w);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w : stack) &#123;</span><br><span class="line">                adj[v].add(w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">E</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> E;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt; V)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"vertex "</span> + v + <span class="string">" is not between 0 and "</span> + (V - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        validateVertex(w);</span><br><span class="line">        E++;</span><br><span class="line">        adj[v].add(w);</span><br><span class="line">        adj[w].add(v);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">adj</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> adj[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">degree</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> adj[v].size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder s = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        s.append(V + <span class="string">" vertices "</span> + E + <span class="string">" edges "</span> + NEWLINE);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</span><br><span class="line">            s.append(v + <span class="string">": "</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w : adj[v]) &#123;</span><br><span class="line">                s.append(w + <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            s.append(NEWLINE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的内容中有说到两个顶点是否相连通问题，这个问题通常用深度优先算法来解决。<br>深度优先算法，是从一个顶点出发，将路径中第一次经过的顶点和边打上标记，直至遇到已被标记过的顶点，此时返回上一层的顶点，继续标记该顶点的剩余相邻顶点，直至该顶点所有的相邻顶点都标记完毕，则返回到更上一层的顶点，继续以上操作，直至图中所有顶点都被标记完毕。<br>所以深度优先算法中，一开始被标记的顶点都处于图中很深的位置。<br>以下是其Java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;<span class="comment">// 标记路径上的点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;<span class="comment">// 路径上连接最后的顶点的边</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> s;<span class="comment">// 起点</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">        edgeTo = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">        validateVertex(s);</span><br><span class="line">        dfs(G, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        marked[v] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> w : G.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!marked[w])&#123;</span><br><span class="line">                edgeTo[w] = v;</span><br><span class="line">                dfs(G, w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> marked[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">if</span> (!hasPathTo(v))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Stack&lt;Integer&gt; path = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">// edgeTo[]的值是指向该点的点 只要存在值则表示有边连接该顶点 </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = v; x != s; x = edgeTo[x]) &#123;</span><br><span class="line">            path.push(x);</span><br><span class="line">        &#125;<span class="comment">// s-v的路径中除去s以外的点</span></span><br><span class="line">        path.push(s);</span><br><span class="line">        <span class="keyword">return</span> path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> V = marked.length;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= V)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"vertex "</span> + v + <span class="string">" is not between 0 and "</span> + (V - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于图的另一个问题是，既然顶点和顶点是相连的，那他们之间存在的路径中，哪一条是最短路径？对于这个问题，深度优先搜索是无能为力。此时就需要广度优先搜索了。<br>广度优先搜索，是从一个顶点出发，将该顶点邻接表内的所有顶点都标记出来，然后在依次将该邻接表内的顶点的邻接表内的顶点也标记出来，如此一直进行下去。这种遍历方式，很适合用队列的数据结构来表示。<br>假设现在需要找到从s到v的最短的路径。<br>按照广度优先搜索算法来表示：从s开始，先在距离s为一条边的顶点中寻找v，若没找到，则继续在距离s为两条边的顶点中寻找，以此类推。<br>下面是其java实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INFINITY = Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;<span class="comment">// 被标记的顶点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo; <span class="comment">// 返回值是指向一个顶点的另一个顶点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] distTo;<span class="comment">// 距离</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BreadthFirstPaths</span><span class="params">(Graph G, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">        distTo = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        edgeTo = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        validateVertex(s);</span><br><span class="line">        bfs(G, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 广度优先搜索</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++) &#123;</span><br><span class="line">            distTo[v] = INFINITY;</span><br><span class="line">        &#125;</span><br><span class="line">        distTo[s] = <span class="number">0</span>;</span><br><span class="line">        marked[s] = <span class="keyword">true</span>;</span><br><span class="line">        q.enqueue(s);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w : G.adj(v)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!marked[w]) &#123;</span><br><span class="line">                    edgeTo[w] = v;</span><br><span class="line">                    distTo[w] = distTo[v] + <span class="number">1</span>;</span><br><span class="line">                    marked[w] = <span class="keyword">true</span>;</span><br><span class="line">                    q.enqueue(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertex</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> V = marked.length;</span><br><span class="line">        <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &lt;= V) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"vertex "</span> + v + <span class="string">" is not between 0 and "</span> + (V - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BreadthFirstPaths</span><span class="params">(Graph G, Iterable&lt;Integer&gt; sources)</span> </span>&#123;</span><br><span class="line">        marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">        distTo = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        edgeTo = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++) &#123;</span><br><span class="line">            distTo[v] = INFINITY;</span><br><span class="line">        &#125;</span><br><span class="line">        validateVertices(sources);</span><br><span class="line">        bfs(G, sources);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G, Iterable&lt;Integer&gt; sources)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> s : sources) &#123;</span><br><span class="line">            marked[s] = <span class="keyword">true</span>;</span><br><span class="line">            distTo[s] = <span class="number">0</span>;</span><br><span class="line">            q.enqueue(s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> w : G.adj(v)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!marked[w]) &#123;</span><br><span class="line">                    edgeTo[w] = v;</span><br><span class="line">                    distTo[w] = distTo[v] + <span class="number">1</span>;</span><br><span class="line">                    marked[w] = <span class="keyword">true</span>;</span><br><span class="line">                    q.enqueue(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validateVertices</span><span class="params">(Iterable&lt;Integer&gt; vertices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (vertices == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"argument is null"</span>);</span><br><span class="line">        <span class="keyword">int</span> V = marked.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v : vertices) &#123;</span><br><span class="line">            <span class="keyword">if</span> (v &lt; <span class="number">0</span> || v &gt;= V) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"vertex "</span> + v + <span class="string">" is not between 0 and "</span> + (V - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> marked[v];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">distTo</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">return</span> distTo(v);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最短距离路径</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        validateVertex(v);</span><br><span class="line">        <span class="keyword">if</span> (!hasPathTo(v))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Stack&lt;Integer&gt; path = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="keyword">for</span> (x = v; distTo[x] != <span class="number">0</span>; x = edgeTo[x]) &#123;</span><br><span class="line">            path.push(x);</span><br><span class="line">        &#125;</span><br><span class="line">        path.push(x);</span><br><span class="line">        <span class="keyword">return</span> path;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <!--
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        -->
+    <p>
+                <!--<a href="http://songchunlin.net/en" title="宋春林的英文站点" target="_blank">英文</a> ::
+                <a href="http://www.zhihu.com/people/songcl" title="宋春林的知乎" target="_blank">知乎</a> ::-->
+                <a href="http://weibo.com/ishanlog" title="小寒的微博" target="_blank">微博</a> ::
+                <a href="mailto:shxheniaoan@gmail.com" title="小寒的Gmail邮箱" target="_blank">邮箱</a> ::
+                <a href="http://www.douban.com/people/ishanlog/" title="小寒的豆瓣" target="_blank">豆瓣</a> ::
+                <!--<a href="https://500px.com/songchunlin" title="宋春林的摄影相册" target="_blank">500px</a> ::-->
+                <a href="https://github.com/isshl" title="小寒的GitHub" target="_blank">GitHub</a> ::
+                <!--<a href="https://www.researchgate.net/profile/Chunlin_Song4" title="宋春林的 ResearchGate" target="_blank">ResearchGate</a> ::
+                <a href="http://songchunlin.net/cn/feed/" title="RSS 订阅" target="_blank" >RSS</a>-->
+                <a href="https://www.instagram.com/isshl/" title="小寒的instagram" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
