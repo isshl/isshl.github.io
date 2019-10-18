@@ -99,6 +99,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑, sans-serif;
 }
 .nav .avatar-name {
   display: flex;
@@ -338,11 +339,12 @@ body {
   flex-direction: row;
 }
 .post-preview .post-time {
-  font-size: 17px;
+  font-size: 16px;
   color: #999999;
   width: 125px;
   font-weight: 300;
   line-height: 24px;
+  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑, sans-serif;
 }
 .post-preview .post-info {
   flex: 1;
@@ -357,7 +359,8 @@ body {
   margin-top: 0;
   margin-bottom: 5px;
   color: #101010;
-  font-size: 18px;
+  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑,  sans-serif;
+  font-size: 16px;
   font-weight: 300;
   transition: color 0.4s;
 }
@@ -372,6 +375,7 @@ body {
   font-weight: 300;
   color: #999999;
   font-size: 14px;
+  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑, sans-serif;
   text-decoration: none;
 }
 .post-preview-container {
