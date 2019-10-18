@@ -644,7 +644,7 @@ body {
 }
 .post-content p {
   color: #404040;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 30px;
   text-indent: 2em;
   letter-spacing: 1px;
@@ -930,7 +930,6 @@ pre,
   overflow: auto;
   margin: 20px 0;
   padding: 0;
-  font-size: 16px;
   color: #4d4d4c;
   background: #f7f7f7;
   line-height: 1.6;
@@ -938,6 +937,8 @@ pre,
 pre,
 code {
   font-family: "Fira Code", Monaco, Menlo !important;
+  font-size: 15px;
+  font-weight: normal;
 }
 code {
   padding: 2px 4px;
