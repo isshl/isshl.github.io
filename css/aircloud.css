@@ -1,7 +1,9 @@
 /*varibles*/
-* {
+/* {
   font-family: RobotoDraft, Roboto, "Helvetica Neue", "Hiragino Sans GB", 冬青黑体, "Microsoft YaHei", 微软雅黑, 文泉驿微米黑, sans-serif;
 }
+
+ */
 body,
 html {
   margin: 0;
@@ -646,6 +648,7 @@ body {
   line-height: 30px;
   text-indent: 2em;
   letter-spacing: 1px;
+  font-family:normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑,  sans-serif ;
 }
 .post-content p img {
   width: 80%;
