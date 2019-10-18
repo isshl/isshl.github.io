@@ -934,7 +934,7 @@ pre,
 }
 pre,
 code {
-  font-family: "Fira Code", consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace !important;
+  font-family: "Fira Code", Monaco, Menlo !important;
 }
 code {
   padding: 2px 4px;
@@ -943,6 +943,7 @@ code {
   background: #eee;
   border-radius: 3px;
   font-size: 13px;
+  font-family: "Fira Code", Monaco, Menlo !important;
 }
 pre {
   padding: 10px;
