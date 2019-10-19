@@ -533,6 +533,7 @@ body {
 }
 .one-tag-list .post-preview {
   padding-left: 2em;
+  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑, sans-serif;
 }
 .one-tag-list .post-preview a {
   cursor: pointer;
@@ -547,7 +548,6 @@ body {
   font-size: 18px;
   font-weight: 300;
   transition: color 0.4s;
-  font-family: normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑, sans-serif;
 }
 .one-tag-list .post-preview a .post-title:hover {
   color: #4990E2;
