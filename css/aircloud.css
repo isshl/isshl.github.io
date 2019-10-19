@@ -871,6 +871,7 @@ body {
 .archives-container .one-tag-list .listing-seperator {
   font-size: 18px;
   color: #999999;
+  font-family:normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑,  sans-serif ;
 }
 .archives-container .one-tag-list ul {
   list-style: none;
