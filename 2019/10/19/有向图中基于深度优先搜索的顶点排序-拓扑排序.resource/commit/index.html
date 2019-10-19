@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="小寒的博客">
+    <meta name="keyword" content="编程 GTD 自我管理">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        小寒丨isshl
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 醉后不知天在水，满船清梦压星河 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar radius">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>小寒</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 醉后不知天在水，满船清梦压星河 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-19 10:27:02</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        {"compress":true,"commitItems":[["655afed5-4f8c-4876-a727-b23f0637e837",1571452022000,"---\ntitle: 有向图中基于深度优先搜索的顶点排序&拓扑排序\ndate: 2019-10-15 15:11:37\ntags:\n - 算法\n---\n\n深度优先搜索中，图中的每个顶点只会被访问一次。\n那么将dfs的参数顶点保存在一个数据结构中，遍历这个数据结构实际上能访问到图中的所有顶点。\n遍历的顺序取决于这个数据结构以及是在递归之前还是之后进行保存的。\n典型的应用中，最为让人感兴趣的有3中排列顺序。\n1. 前序：递归调用之前将顶点加入队列。\n2. 后序：递归调用之后将顶点加入队列。\n3. 逆后序：递归调用之后将顶点压入栈。\n本质上来说，前序是dfs的调用顶点的顺序。后序则是顶点遍历完成的顺序。\n![depth-first-orders](https://isshl.me/img/depth-first-orders.png)\n以下为Java的实现：\n\n```java\n// 有向图中基于深度优先搜索的顶点排序\n\nimport java.util.Stack;\n\npublic class DepthFirstOrder{\n    private boolean[] marked;// 标记\n    private int[] pre;// 前序中顶点在队列中的编号\n    private int[] post;// 后序中顶点在队列中的编号\n    private Queue<integer> preorder;// 前序队列\n    private Queue<integer> postorder;// 后序队列\n    private int preCounter;// 前序队列中顶点的数量\n    private int postCounter;// 后序队列中顶点的数量\n    \n    public DepthFirstOrder(Digraph G){\n        pre = new int[G.V()];\n        post = new int[G.V()];\n        postorder = new Queue<integer>();\n        preorder = new Queue<integer>();\n        marked = new boolean[G.V()];\n        for(int v=0;v<g.v();v++){\n if(!marked[v]) dfs(g, v);\n }\n assert check();\n }\n\n private void dfs(digraph g,int v){\n marked[v]="true;//" 标记\n pre[v]="preCounter++;//" 前序中顶点在队列中的编号\n preorder.enqueue(v); 添加到前序队列中\n for(int w:g.adj(v)){\n if(!marked[w])\n w);\n postorder.enqueue(v); 添加到后序队列中\n post[v]="postCounter++;//" 后序中顶点在队列中的编号\n public depthfirstorder(){} 待更新加权有向图 \n\n dfs(){} 待更新加权有向图\n\n 返回顶点在前序中的编号\n int pre(int validatevertex(v);\n return pre[v];\n 返回顶点在后序中的编号\n post(int post[v];\n \n iterable<integer> pre(){\n        return preorder;\n    }\n\n    public Iterable<integer> post(){\n        return postorder;\n    }\n\n    public Iterable<integer> reversePost(){\n        Stack<integer> reverse = new Stack<integer>();\n        for(int v:postorder){\n            reverse.push(v);\n        }\n        return reverse;\n    }\n\n    private boolean check(){\n        int r=0;\n        for(int v:post()){\n            if(post(v)!=r){\n                StdOut.println(\"post(v) and post() inconsistent\");\n                return false;\n            }\n            r++;\n        }\n        r=0;\n        for(int v:pre()){\n            if (pre(v) != r) {\n                StdOut.println(\"pre(v) and pre() inconsistent\");\n                return false;\n            }\n            r++;\n        }\n        return true;\n    }\n\n    private void validateVertex(int v) {\n        int V = marked.length;\n        if (v < 0 || v >= V)\n            throw new IllegalArgumentException(\"vertex \" + v + \" is not between 0 and \" + (V-1));\n    }\n\n}\n```\n\n\n拓扑排序：给定一幅有向图，将有所的顶点排序，使得所有的有向边均从排在前面的元素指向排在后面的元素。\n在优先级的调度问题中，排在前面的任务通常是后面任务的前提，或者说优先级更高。\n而拓扑排序则是解决这个问题的关键。那什么样的有向图才能进行拓扑排序呢？\n有向图必须是无环图。\n而上面的有向图基于深度优先搜索的顶点排序，其中的逆后序排列恰好就是拓扑顺序。\n思考一下：深度优先搜索中，最先完成遍历结束的一定是远处的顶点。然后才是近处的顶点，最后是起点。拓扑排序是前面的顶点发出的有向边均指向排在后面的元素。\n![topological-sort](https://isshl.me/img/topological-sort.png)\n以下是Java实现：\n\n```java\n// 拓扑排序\npublic class Topological{\n    private Iterable<integer> order;\n    private int[] rank;\n\n    public Topological(Digraph G){\n        DirectedCycle finder = new DirectedCycle(G);// 检查有向图中是否存在环\n        if(!finder.hasCycle()){// 没有环就可以构建拓扑排序\n            DepthFirstOrder  dfs = new DepthFirstOrder(G);\n            order = dfs.reversePost();\n            rank = new int[G.V()];\n            int i=0;\n            for(int v:order){\n                rank[v]=i++;\n            }\n        }\n    }\n\n    public Topological(){}// 待更新加权有向图\n\n    public Iterable<integer> order(){\n        return order;\n    }\n\n    public boolean hasOrder(){\n        return order!=null;\n    }\n\n    public int rank(int v){\n\n        if(hasOrder()) return rank[v];\n        else return -1;\n    }\n\n    private void validateVertex(int v){\n        int V = rank.length;\n        if (v < 0 || v >= V)\n            throw new IllegalArgumentException(\"vertex \" + v + \" is not between 0 and \" + (V-1));\n    }\n}\n```\n",[[1571452005839,["x@x.local",[[-1,205,"."]],[206,206],[205,205]]],[1571452007716,["x@x.local",[[1,205,"。"]],[205,205],[206,206]]],[1571452008504,["x@x.local",[[-1,205,"。"]],[206,206],[205,205]]],[1571452008919,["x@x.local",[[1,205,"."]],[205,205],[206,206]]],[1571452015395,["x@x.local",[[-1,204,"1."]],[206,206],[204,204]]],[1571452016007,["x@x.local",[[1,204,"*"]],[204,204],[205,205]]],[1571452018662,["x@x.local",[[-1,224,"2."]],[226,226],[224,224]]],[1571452019081,["x@x.local",[[1,224,"*"]],[224,224],[225,225]]],[1571452020995,["x@x.local",[[-1,244,"3."]],[246,246],[244,244]]],[1571452021498,["x@x.local",[[1,244,"*"]],[244,244],[245,245]]]],null,"x@x.local"]]}</integer></integer></integer></integer></integer></integer></g.v();v++){\n></integer></integer></integer></integer>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <!--
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        -->
+    <p>
+                <!--<a href="http://songchunlin.net/en" title="宋春林的英文站点" target="_blank">英文</a> ::
+                <a href="http://www.zhihu.com/people/songcl" title="宋春林的知乎" target="_blank">知乎</a> ::-->
+                <a href="http://weibo.com/ishanlog" title="小寒的微博" target="_blank">微博</a> ::
+                <a href="mailto:shxheniaoan@gmail.com" title="小寒的Gmail邮箱" target="_blank">邮箱</a> ::
+                <a href="http://www.douban.com/people/ishanlog/" title="小寒的豆瓣" target="_blank">豆瓣</a> ::
+                <!--<a href="https://500px.com/songchunlin" title="宋春林的摄影相册" target="_blank">500px</a> ::-->
+                <a href="https://github.com/isshl" title="小寒的GitHub" target="_blank">GitHub</a> ::
+                <!--<a href="https://www.researchgate.net/profile/Chunlin_Song4" title="宋春林的 ResearchGate" target="_blank">ResearchGate</a> ::
+                <a href="http://songchunlin.net/cn/feed/" title="RSS 订阅" target="_blank" >RSS</a>-->
+                <a href="https://www.instagram.com/isshl/" title="小寒的instagram" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
