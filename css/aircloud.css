@@ -662,6 +662,8 @@ body {
 .post-content ul,
 .post-content ol {
   padding-left: 2em;
+  font-family:normal, 'Avenir Next', Avenir,'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 微软雅黑,  sans-serif ;
+  font-size: 15px;
 }
 .post-content ul li,
 .post-content ol li {
