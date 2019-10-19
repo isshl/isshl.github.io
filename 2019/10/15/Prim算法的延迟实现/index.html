@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="小寒的博客">
+    <meta name="keyword" content="编程 GTD 自我管理">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Prim算法的延迟实现 - 小寒丨isshl
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 醉后不知天在水，满船清梦压星河 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar radius">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>小寒</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 醉后不知天在水，满船清梦压星河 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Prim算法的延迟实现
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-15 15:14:06</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>上篇博文的内容涉及到的是最小生成树的理论部分。即：切分定理以及加权图和加权边的数据结构。<br>回顾一下切分定理，它的内容是：<br><strong>在一幅加权图中，给定任意的切分，它的横切边中权重最小的边必然属于图的最小生成树。</strong><br>而所谓的切分，则是将图中的顶点分成两个非空不重叠的集合，横切边是连接两个不同集合内的顶点的边。<br>能够找到任意加权图的算法这里介绍了两种：一种是Prim算法，一种是Kruskal算法。<br>Prim算法的实现又分两种，一种是延迟实现，一种是即时实现。<br>区别在于对新加入最小生成树的顶点与树内其他顶点之间的边是否及时删除上。</p>
+<p>先说说Prim算法的延迟实现。<br>首先其实现切分的方式是在构造方法中遍历图中的顶点，<br>将图中的顶点分成已标记的顶点和未标记的顶点两个非空集合。<br>然后将已标记的顶点中所有连接这个顶点和未被标记的顶点的边加入到优先队列中，<br>标记其中权重最小的边，加入到最小生成树中，并将相关的顶点加入到最小生成树中。</p>
+<p>因为优先队列中的那些并不是被遍历到的顶点的横切边没有被删除，<br>即便正在被遍历的顶点的横切边中最小权重边在优先队列中不是最小的，<br>也应当忽略优先队列中的那些失效的横切边，而选择正在被遍历的顶点的最小权重边。<br>相应的解决办法是，因为那些没有被删除的失效边两端的顶点均在最小生成树内，<br>则必然会被标记，所以一旦检查到其两端顶点被标记则直接忽略它。</p>
+<p>以上是延迟实现的一些关键地方。下面是其Java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyPrimMST</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> FLOATING_POINT_EPSILON = <span class="number">1E-12</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> weight;<span class="comment">// 最小生成树的权重大小</span></span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Edge&gt; mst;<span class="comment">// 最小生成的边</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;<span class="comment">// 最小生成树的顶点</span></span><br><span class="line">    <span class="keyword">private</span> MinPQ&lt;Edge&gt; pq;<span class="comment">// 横切边</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LazyPrimMST</span><span class="params">(EdgeWeightedGraph G)</span> </span>&#123;</span><br><span class="line">        mst = <span class="keyword">new</span> Queue&lt;Edge&gt;();</span><br><span class="line">        pq = <span class="keyword">new</span> MinPQ&lt;Edge&gt;();</span><br><span class="line">        marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!marked[v])</span><br><span class="line">                prim(G, v);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">assert</span> <span class="title">check</span><span class="params">(G)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">prim</span><span class="params">(EdgeWeightedGraph G, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        scan(G, s);</span><br><span class="line">        <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">            Edge e = pq.delMin();</span><br><span class="line">            <span class="keyword">int</span> v = e.either(), w = e.other(v);</span><br><span class="line">            <span class="keyword">assert</span> marked[v]||marked[w];</span><br><span class="line">            <span class="keyword">if</span> (marked[v] &amp;&amp; marked[w]) <span class="comment">// pq中的横切边若失效了(权重并不是最小的) 即跳过</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            mst.enqueue(e);<span class="comment">// 添加最小权重横切边到最小生成树中</span></span><br><span class="line">            weight += e.weight();<span class="comment">// 更新最小生成树的权重</span></span><br><span class="line">            <span class="keyword">if</span> (!marked[v])<span class="comment">// 标记顶点v或者w，即将顶点加入到最小生成树中</span></span><br><span class="line">                scan(G, v);</span><br><span class="line">            <span class="keyword">if</span> (!marked[w])</span><br><span class="line">                scan(G, w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标记顶点v 并将所有连接顶点v和未标记顶点的边加入pq中</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">scan</span><span class="params">(EdgeWeightedGraph G, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> !marked[v];</span><br><span class="line">        marked[v] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (Edge e : G.adj(v)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!marked[e.other(v)])</span><br><span class="line">                pq.insert(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterable&lt;Edge&gt; <span class="title">edges</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mst;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">weight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(EdgeWeightedGraph G)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> totalWeight = <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Edge e : edges()) &#123;</span><br><span class="line">            totalWeight += e.weight();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (Math.abs(totalWeight - weight()) &gt; FLOATING_POINT_EPSILON) &#123;</span><br><span class="line">            System.err.printf(<span class="string">"Weight of edges does not equal weight(): %f vs. %f\n"</span>, totalWeight, weight());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        UF uf = <span class="keyword">new</span> UF(G.V());</span><br><span class="line">        <span class="keyword">for</span> (Edge e : edges()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = e.either(), w = e.other(v);</span><br><span class="line">            <span class="keyword">if</span> (uf.connected(v, w)) &#123;</span><br><span class="line">                System.err.println(<span class="string">"Not a forest"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            uf.union(v, w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Edge e : G.edges()) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = e.either(), w = e.other(v);</span><br><span class="line">            <span class="keyword">if</span> (!uf.connected(v, w)) &#123;</span><br><span class="line">                System.err.println(<span class="string">"Not a spanning forest"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Edge e : edges()) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// all edges in MST except e</span></span><br><span class="line">            uf = <span class="keyword">new</span> UF(G.V());</span><br><span class="line">            <span class="keyword">for</span> (Edge f : mst) &#123;</span><br><span class="line">                <span class="keyword">int</span> x = f.either(), y = f.other(x);</span><br><span class="line">                <span class="keyword">if</span> (f != e)</span><br><span class="line">                    uf.union(x, y);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// check that e is min weight edge in crossing cut</span></span><br><span class="line">            <span class="keyword">for</span> (Edge f : G.edges()) &#123;</span><br><span class="line">                <span class="keyword">int</span> x = f.either(), y = f.other(x);</span><br><span class="line">                <span class="keyword">if</span> (!uf.connected(x, y)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (f.weight() &lt; e.weight()) &#123;</span><br><span class="line">                        System.err.println(<span class="string">"Edge "</span> + f + <span class="string">" violates cut optimality conditions"</span>);</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <!--
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+        -->
+    <p>
+                <!--<a href="http://songchunlin.net/en" title="宋春林的英文站点" target="_blank">英文</a> ::
+                <a href="http://www.zhihu.com/people/songcl" title="宋春林的知乎" target="_blank">知乎</a> ::-->
+                <a href="http://weibo.com/ishanlog" title="小寒的微博" target="_blank">微博</a> ::
+                <a href="mailto:shxheniaoan@gmail.com" title="小寒的Gmail邮箱" target="_blank">邮箱</a> ::
+                <a href="http://www.douban.com/people/ishanlog/" title="小寒的豆瓣" target="_blank">豆瓣</a> ::
+                <!--<a href="https://500px.com/songchunlin" title="宋春林的摄影相册" target="_blank">500px</a> ::-->
+                <a href="https://github.com/isshl" title="小寒的GitHub" target="_blank">GitHub</a> ::
+                <!--<a href="https://www.researchgate.net/profile/Chunlin_Song4" title="宋春林的 ResearchGate" target="_blank">ResearchGate</a> ::
+                <a href="http://songchunlin.net/cn/feed/" title="RSS 订阅" target="_blank" >RSS</a>-->
+                <a href="https://www.instagram.com/isshl/" title="小寒的instagram" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
