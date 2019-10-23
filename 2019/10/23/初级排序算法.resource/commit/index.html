@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    
+</div>
+    
 </div>
 
 
@@ -112,181 +116,34 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-12</div>
-        <div class="post-info">
-            <a href="/2019/10/12/基于拉链法的散列表/">
-                <h3>
-                    基于拉链法的散列表
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-07</div>
-        <div class="post-info">
-            <a href="/2019/10/07/平衡查找树/">
-                <h3>
-                    平衡查找树
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-10-23 20:36:02</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-03</div>
-        <div class="post-info">
-            <a href="/2019/10/03/二叉查找树/">
-                <h3>
-                    二叉查找树
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
+    <div class="post-content no-indent">
+        {"compress":true,"commitItems":[["d5d0b4c4-9e39-47d1-bdb0-23c0d2803c49",1571834162469,"---\ntitle: 初级排序算法\ndate: 2019-09-22 10:42:21\ntags:\n        - 算法\n---\n\n**Algorithms**这本书花了不少时间阅读，终于在某个时间点读完了。虽说读完了，但之前读的东西基本上也都忘得差不多了。预计抽出一些时间，不定期将这本书中的算法思想和java实现更新到此博客上。\n这是第一篇。\n排序算法的基础。\n\n* * *\n选择排序\n思想：找到数组中最小的元素，然后和数组第一个元素交换位置。再次，找到数组中第二小的元素，然后和数组第二个元素交换位置。如此反复，直到整个数组排序。\n以下为Java的实现： _仅提供必要的代码_\n\n```java\npublic class Selection {\n    private Selection() {\n    }\n\n    public void sort(Comparable[] a) {\n        int n = a.length;\n        for (int i = 0; i < n; i++) {// 选取数组的第一个元素\n            int min = i;\n            for (int j = i + 1; j < n; j++) {// 依次选取数组中剩余的元素\n                if (less(a[j], a[min]))\n                    min = j;// 选取数组中最小的元素\n            }\n            exch(a, i, min);\n            assert isSorted(a, 0, i);\n        }\n        assert isSorted(a);\n    }\n\n    private static boolean less(Comparable a, Comparable b) {\n        return a.compareTo(b) < 0;\n    }\n\n    private static void exch(Object[] a, int i, int j) {\n        Object t = a[i];\n        a[i] = a[j];\n        a[j] = t;\n    }\n\n    private static boolean isSorted(Comparable[] a) {\n        return isSorted(a, 0, a.length - 1);\n    }\n\n    private static boolean isSorted(Comparable[] a, int lo, int hi) {\n        for (int i = 0; i < a.length; i++) {\n            if (less(a[i], a[i - 1]))\n                return false;\n        }\n        return true;\n    }\n}\n```\n\n插入算法\n思想：在一个数组中，把相邻的元素进行比较和交换，使各个元素处在恰当的位置上，直至此操作的索引到达数组的右端时，完成排序。\nJava实现：_仅提供必要的代码_\n\n```java\npublic class Insertion {\n    public void sort(Comparable[] a) {\n        int n = a.length;\n        for (int i = 1; i < n; i++) {\n            for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {\n                exch(a, j, j - 1);\n            }\n            assert isSorted(a, 0, i);\n        }\n        assert isSorted(a);\n    }\n\n    private static boolean less(Comparable a, Comparable b) {\n        return a.compareTo(b) < 0;\n    }\n\n    private static void exch(Object[] a, int i, int j) {\n        Object t = a[i];\n        a[i] = a[j];\n        a[j] = t;\n    }\n\n    private static boolean isSorted(Comparable[] a) {\n        return isSorted(a, 0, a.length);\n    }\n\n    private static boolean isSorted(Comparable[] a, int lo, int hi) {\n        for (int i = lo + 1; i < hi; i++)\n            if (less(a[i], a[i - 1]))\n                return false;\n        return true;\n\n    }\n}\n```\n\n",[[1571834110938,["x@x.local",[[1,68,"\n"]],[67,67],[68,68]]],[1571834130482,["x@x.local",[[1,68,"![Algorithms]($resource/Algorithms.png)"]],[68,68],[108,108]]],[1571834155697,["x@x.local",[[-1,82,"$resource"]],[91,91],[82,82]]],[1571834158715,["x@x.local",[[1,82,"https:"]],[82,82],[88,88]]],[1571834159124,["x@x.local",[[1,89,"//"]],[88,88],[90,90]]],[1571834162400,["x@x.local",[[1,90,"isshl."]],[90,90],[96,96]]],[1571834163061,["x@x.local",[[1,96,"me"]],[96,96],[98,98]]],[1571834164058,["x@x.local",[[1,99,"/"]],[98,98],[99,99]]],[1571834165907,["x@x.local",[[1,99,"img"]],[99,99],[102,102]]]],null,"x@x.local"]]}
+        
+        <br />
+        <div id="comment-container">
         </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-03</div>
-        <div class="post-info">
-            <a href="/2019/10/03/基于有序数组的二分查找/">
-                <h3>
-                    基于有序数组的二分查找
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
         </div>
+
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-03</div>
-        <div class="post-info">
-            <a href="/2019/10/03/改变习惯-《习惯的力量》/">
-                <h3>
-                    改变习惯--《习惯的力量》
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#心理" title="心理">心理</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-10-03</div>
-        <div class="post-info">
-            <a href="/2019/10/03/符号表和顺序查找/">
-                <h3>
-                    符号表和顺序查找
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-09-27</div>
-        <div class="post-info">
-            <a href="/2019/09/27/堆排序/">
-                <h3>
-                    堆排序
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-09-26</div>
-        <div class="post-info">
-            <a href="/2019/09/26/索引优先队列/">
-                <h3>
-                    索引优先队列
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#算法" title="算法">算法</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
 </div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
-    <li class="next">
-        <a href="/page/4/">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
 
     </div>
 </div>
@@ -339,12 +196,31 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://isshl.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 
 
 
